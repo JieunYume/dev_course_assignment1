@@ -18,7 +18,7 @@ public class Todo{
         private int id;
         private String title;
         @ColumnDefault("false")
-        private boolean completionStatus;
+        private Boolean completed;
         @CreatedDate
         private LocalDateTime createDate;
         @LastModifiedDate
@@ -26,15 +26,24 @@ public class Todo{
 
         public Todo(String title){
                 this.title = title;
+                this.completed = false;
         }
 
         public TodoDto toDto(){
                 return new TodoDto(
                         id,
                         title,
-                        completionStatus,
+                        completed,
                         createDate,
                         modifyDate
                 );
+        }
+
+        public void setTitle(String title) {
+                this.title = title;
+        }
+
+        public void setCompleted(Boolean completed) {
+                this.completed = completed;
         }
 }
