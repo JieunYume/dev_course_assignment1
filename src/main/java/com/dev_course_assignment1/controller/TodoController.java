@@ -23,4 +23,9 @@ public class TodoController {
     public Result<List<TodoDto>> getTodos(){
         return todoService.getTodos();
     }
+
+    @GetMapping("/{id}")
+    public Result<TodoDto> getTodos(@PathVariable int id){
+        return todoService.getTodo(id);
+    }
 }

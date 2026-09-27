@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -33,5 +34,14 @@ public class TodoService {
                                 .map(Todo::toDto)
                                 .toList();
         return new Result<>(200, "할 일 목록 조회에 성공했습니다.", todos);
+    }
+
+    public Result<TodoDto> getTodo(int id) {
+        Optional<Todo> optionalTodo = todoRepository.findById(id);
+
+        if(optionalTodo.isEmpty())
+            return new Result<>(404, "할 일 %d번 항목 조회에 실패했습니다.".formatted(id));
+
+        return new Result<>(200, "할 일 %d번 항목 조회에 성공했습니다.".formatted(id), optionalTodo.get().toDto());
     }
 }
